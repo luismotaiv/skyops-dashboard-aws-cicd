@@ -1,0 +1,210 @@
+name: Deploy Weather Dashboard to AWS ECS
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
+  PROJECT_NAME: weather-dashboard
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Run Tests
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        npm ci
+    
+    - name: Install frontend dependencies
+      run: |
+        cd frontend
+        npm ci
+    
+    - name: Run backend tests
+      run: |
+        cd backend
+        npm test
+    
+    - name: Run frontend tests
+      run: |
+        cd frontend
+        npm test -- --coverage --watchAll=false
+    
+    - name: Backend linting
+      run: |
+        cd backend
+        npm run lint || echo "No lint script found, skipping..."
+    
+    - name: Frontend linting
+      run: |
+        cd frontend
+        npm run lint || echo "No lint script found, skipping..."
+
+  build-and-deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    name: Build and Deploy to ECS
+    
+    permissions:
+      id-token: write
+      contents: read
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+        role-session-name: GitHubActions-WeatherDashboard
+        aws-region: ${{ env.AWS_REGION }}
+    
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+    
+    - name: Get commit SHA short
+      id: commit
+      run: echo "sha_short=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_OUTPUT
+    
+    - name: Build and push backend image
+      env:
+        ECR_REPOSITORY: ${{ env.PROJECT_NAME }}-backend
+        IMAGE_TAG: ${{ steps.commit.outputs.sha_short }}
+      run: |
+        cd backend
+        
+        # Build Docker image
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        
+        # Push to ECR
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        
+        echo "Backend image pushed: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+    
+    - name: Build and push frontend image
+      env:
+        ECR_REPOSITORY: ${{ env.PROJECT_NAME }}-frontend
+        IMAGE_TAG: ${{ steps.commit.outputs.sha_short }}
+      run: |
+        cd frontend
+        
+        # Build Docker image
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        
+        # Push to ECR
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        
+        echo "Frontend image pushed: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+    
+    - name: Update backend ECS service
+      env:
+        CLUSTER_NAME: ${{ env.PROJECT_NAME }}-cluster
+        SERVICE_NAME: ${{ env.PROJECT_NAME }}-backend
+        ECR_REPOSITORY: ${{ env.PROJECT_NAME }}-backend
+        IMAGE_TAG: ${{ steps.commit.outputs.sha_short }}
+      run: |
+        # Get current task definition
+        TASK_DEFINITION=$(aws ecs describe-task-definition \
+          --task-definition $SERVICE_NAME \
+          --query 'taskDefinition' \
+          --output json)
+        
+        # Update image URI in task definition
+        NEW_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq --arg IMAGE "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" '.containerDefinitions[0].image = $IMAGE | del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .placementConstraints, .compatibilities, .registeredAt, .registeredBy)')
+        
+        # Register new task definition
+        aws ecs register-task-definition \
+          --cli-input-json "$NEW_TASK_DEFINITION" > /dev/null
+        
+        # Update service
+        aws ecs update-service \
+          --cluster $CLUSTER_NAME \
+          --service $SERVICE_NAME \
+          --task-definition $SERVICE_NAME > /dev/null
+        
+        echo "Backend service updated successfully"
+    
+    - name: Update frontend ECS service
+      env:
+        CLUSTER_NAME: ${{ env.PROJECT_NAME }}-cluster
+        SERVICE_NAME: ${{ env.PROJECT_NAME }}-frontend
+        ECR_REPOSITORY: ${{ env.PROJECT_NAME }}-frontend
+        IMAGE_TAG: ${{ steps.commit.outputs.sha_short }}
+      run: |
+        # Get current task definition
+        TASK_DEFINITION=$(aws ecs describe-task-definition \
+          --task-definition $SERVICE_NAME \
+          --query 'taskDefinition' \
+          --output json)
+        
+        # Update image URI in task definition
+        NEW_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq --arg IMAGE "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" '.containerDefinitions[0].image = $IMAGE | del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .placementConstraints, .compatibilities, .registeredAt, .registeredBy)')
+        
+        # Register new task definition
+        aws ecs register-task-definition \
+          --cli-input-json "$NEW_TASK_DEFINITION" > /dev/null
+        
+        # Update service
+        aws ecs update-service \
+          --cluster $CLUSTER_NAME \
+          --service $SERVICE_NAME \
+          --task-definition $SERVICE_NAME > /dev/null
+        
+        echo "Frontend service updated successfully"
+    
+    - name: Wait for deployment to complete
+      env:
+        CLUSTER_NAME: ${{ env.PROJECT_NAME }}-cluster
+      run: |
+        echo "Waiting for backend deployment..."
+        aws ecs wait services-stable \
+          --cluster $CLUSTER_NAME \
+          --services ${{ env.PROJECT_NAME }}-backend
+        
+        echo "Waiting for frontend deployment..."
+        aws ecs wait services-stable \
+          --cluster $CLUSTER_NAME \
+          --services ${{ env.PROJECT_NAME }}-frontend
+        
+        echo "Deployment completed successfully!"
+    
+    - name: Get application URL
+      run: |
+        ALB_DNS=$(aws elbv2 describe-load-balancers \
+          --names ${{ env.PROJECT_NAME }}-alb \
+          --query 'LoadBalancers[0].DNSName' \
+          --output text)
+        
+        echo "🚀 Application deployed successfully!"
+        echo "🌐 URL: http://$ALB_DNS"
+        echo "📊 Backend API: http://$ALB_DNS/api/health"
+        
+        # Add to GitHub step summary
+        echo "## 🎉 Deployment Successful" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Application URL**: http://$ALB_DNS" >> $GITHUB_STEP_SUMMARY
+        echo "- **API Health Check**: http://$ALB_DNS/api/health" >> $GITHUB_STEP_SUMMARY
+        echo "- **Commit**: ${{ steps.commit.outputs.sha_short }}" >> $GITHUB_STEP_SUMMARY
