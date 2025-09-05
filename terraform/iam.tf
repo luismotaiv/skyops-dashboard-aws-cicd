@@ -227,6 +227,13 @@ resource "aws_iam_policy" "github_actions_policy" {
       {
         Effect = "Allow"
         Action = [
+          "elbv2:DescribeLoadBalancers"
+        ]
+        Resource = "*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
           "iam:PassRole"
         ]
         Resource = [
