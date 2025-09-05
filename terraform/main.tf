@@ -18,7 +18,7 @@ provider "aws" {
       Project     = "weather-dashboard"
       Environment = var.environment
       ManagedBy   = "terraform"
-      Owner       = "aws-restart-student"
+      Owner       = "aws-restart-student-luismota"
     }
   }
 }

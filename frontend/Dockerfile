@@ -23,6 +23,8 @@ FROM nginx:alpine AS production
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
+RUN chmod +x /docker-entrypoint.sh
+
 # Copy built React app from builder stage
 COPY --from=builder /app/build /usr/share/nginx/html
 
