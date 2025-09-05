@@ -227,6 +227,11 @@ resource "aws_iam_policy" "github_actions_policy" {
       {
         Effect = "Allow"
         Action = [
+          # CLB (antiguo) → usa elasticloadbalancing:*
+          "elasticloadbalancing:DescribeLoadBalancers",
+          "elasticloadbalancing:DescribeTargetGroups",
+          "elasticloadbalancing:DescribeListeners",
+          # ALB / NLB (modernos) → usa elbv2:*
           "elbv2:DescribeLoadBalancers",
           "elbv2:DescribeTargetGroups",
           "elbv2:DescribeListeners"
