@@ -220,15 +220,16 @@ resource "aws_iam_policy" "github_actions_policy" {
           "ecs:DescribeTaskDefinition",
           "ecs:RegisterTaskDefinition",
           "ecs:ListTasks",
-          "ecs:DescribeTasks",
-          "elbv2:DescribeLoadBalancers"
+          "ecs:DescribeTasks"
         ]
         Resource = "*"
       },
       {
         Effect = "Allow"
         Action = [
-          "elbv2:DescribeLoadBalancers"
+          "elbv2:DescribeLoadBalancers",
+          "elbv2:DescribeTargetGroups",
+          "elbv2:DescribeListeners"
         ]
         Resource = "*"
       },
