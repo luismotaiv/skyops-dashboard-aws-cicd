@@ -58,7 +58,7 @@ variable "frontend_memory" {
 variable "desired_count" {
   description = "Desired number of ECS tasks"
   type        = number
-  default     = 2
+  default     = 1
 }
 
 variable "min_capacity" {

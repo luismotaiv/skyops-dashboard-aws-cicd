@@ -47,6 +47,8 @@ services:
       start_period: 30s
     networks:
       - weather-network
+    environment:
+      - BACKEND_HOST=backend:3001
 
 networks:
   weather-network:

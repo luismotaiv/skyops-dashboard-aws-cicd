@@ -278,7 +278,7 @@ resource "aws_iam_role" "ecs_auto_scaling_role" {
   }
 }
 
-resource "aws_iam_role_policy_attachment" "ecs_auto_scaling_role_policy" {
+/* resource "aws_iam_role_policy_attachment" "ecs_auto_scaling_role_policy" {
   role       = aws_iam_role.ecs_auto_scaling_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSServiceRolePolicy"
-}
+  policy_arn = "arn:aws:iam::aws:policy/service-role/ApplicationAutoScalingECSServicePolicy"
+} */

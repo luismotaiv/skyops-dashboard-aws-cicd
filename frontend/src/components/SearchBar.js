@@ -16,7 +16,7 @@ const SearchBar = ({ onSearch }) => {
     setInputValue(e.target.value);
   };
 
-  const popularCities = ['London', 'New York', 'Tokyo', 'Paris', 'Mexico City', 'Buenos Aires'];
+  const popularCities = ['London', 'New York', 'Mexico City', 'Paris', 'Tokyo', 'Colombia', 'Chile',];
 
   const handleCityClick = (city) => {
     onSearch(city);

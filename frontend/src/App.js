@@ -62,7 +62,7 @@ function App() {
 
       <footer className="app-footer">
         <p>Deployed with AWS ECS • CI/CD Pipeline • Terraform IaC</p>
-        <p>Built for AWS re/Start by Morris & Opazo</p>
+        <p>Built for AWS re/Start by luismotaiv</p>
       </footer>
     </div>
   );

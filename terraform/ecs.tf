@@ -159,6 +159,10 @@ resource "aws_ecs_task_definition" "frontend" {
         {
           name  = "NODE_ENV"
           value = "production"
+        },
+        {
+          name  = "BACKEND_HOST"
+          value = aws_lb.main.dns_name
         }
       ]
 
