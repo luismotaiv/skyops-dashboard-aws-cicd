@@ -178,7 +178,7 @@ resource "aws_iam_role" "github_actions" {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:luismotaiv/aws-weather-dashboard-cicd:*"
+            "token.actions.githubusercontent.com:sub" = "repo:${var.github_repository}:*"
           }
         }
       }
@@ -220,7 +220,8 @@ resource "aws_iam_policy" "github_actions_policy" {
           "ecs:DescribeTaskDefinition",
           "ecs:RegisterTaskDefinition",
           "ecs:ListTasks",
-          "ecs:DescribeTasks"
+          "ecs:DescribeTasks",
+          "elbv2:DescribeLoadBalancers"
         ]
         Resource = "*"
       },
