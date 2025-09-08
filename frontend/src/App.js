@@ -75,7 +75,7 @@ function App() {
       <footer className="app-footer">
         <p>
           Deployed with AWS ECS Fargate 
-          <img src={ecsLogo} alt="AWS ECS" className="tech-icon" /> • 
+          <img src={ecsLogo} alt="AWS ECS Fargate" className="tech-icon" /> • 
           CI/CD Pipeline 
           <img src={githubActionsLogo} alt="GitHub Actions" className="tech-icon" /> • 
           Terraform IaC 
