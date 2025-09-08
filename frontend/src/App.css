@@ -20,6 +20,22 @@ body {
   align-items: center;
 }
 
+/* Logo del proyecto */
+.project-logo {
+  width: 250px;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+/* Íconos del footer */
+.tech-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
 .app-header {
   text-align: center;
   padding: 2rem;

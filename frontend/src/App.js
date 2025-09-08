@@ -5,6 +5,13 @@ import LoadingSpinner from './components/LoadingSpinner';
 import weatherService from './services/weatherService';
 import './App.css';
 
+// Importar logos
+import projectLogo from './assets/logo_skyops-dashboard.png';
+import terraformLogo from './assets/icons8-terraform.svg';
+import ecsLogo from './assets/Fargate.svg';
+import githubActionsLogo from './assets/Actions.svg';
+import awsRestartLogo from './assets/AWS_Restart_Logo.png';
+
 function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -40,7 +47,12 @@ function App() {
   return (
     <div className="App">
       <header className="app-header">
-        <h1>🌤️ Weather Dashboard</h1>
+         {/* Logo en vez de H1 */}
+        <img 
+          src={projectLogo} 
+          alt="Weather Dashboard Logo" 
+          className="project-logo" 
+        />
         <p>Real-time weather information powered by CI/CD</p>
       </header>
 
@@ -61,8 +73,18 @@ function App() {
       </main>
 
       <footer className="app-footer">
-        <p>Deployed with AWS ECS • CI/CD Pipeline • Terraform IaC</p>
-        <p>Built for AWS re/Start by luismotaiv</p>
+        <p>
+          Deployed with AWS ECS Fargate 
+          <img src={ecsLogo} alt="AWS ECS" className="tech-icon" /> • 
+          CI/CD Pipeline 
+          <img src={githubActionsLogo} alt="GitHub Actions" className="tech-icon" /> • 
+          Terraform IaC 
+          <img src={terraformLogo} alt="Terraform" className="tech-icon" />
+        </p>
+        <p>
+          Built for AWS re/Start by luismotaiv 
+          <img src={awsRestartLogo} alt="AWS re/Start" className="tech-icon" />
+        </p>
       </footer>
     </div>
   );
