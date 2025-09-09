@@ -15,7 +15,7 @@ variable "project_name" {
 variable "github_repository" {
   description = "GitHub repository in format owner/repo-name"
   type        = string
-  default     = "luismotaiv/aws-weather-dashboard-cicd"
+  default     = "luismotaiv/skyops-dashboard-aws-cicd"
 }
 
 variable "environment" {

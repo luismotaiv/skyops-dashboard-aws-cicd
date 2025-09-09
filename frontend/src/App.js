@@ -83,7 +83,7 @@ function App() {
         </p>
         <p>
           Built for AWS re/Start by luismotaiv 
-          <img src={awsRestartLogo} alt="AWS re/Start" className="tech-icon" />
+          <img src={awsRestartLogo} alt="AWS Re/Start" className="tech-icon" />
         </p>
       </footer>
     </div>
