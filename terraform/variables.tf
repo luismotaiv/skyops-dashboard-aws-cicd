@@ -9,7 +9,7 @@ variable "aws_region" {
 variable "project_name" {
   description = "Name of the project"
   type        = string
-  default     = "weather-dashboard"
+  default     = "skyops-dashboard"
 }
 
 variable "github_repository" {

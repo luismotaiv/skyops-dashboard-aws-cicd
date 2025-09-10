@@ -28,6 +28,23 @@ body {
   margin-bottom: 1rem;
 }
 
+/* Logo AWS re/Start */
+.aws-restart-logo {
+  width: 80px;         /* ancho uniforme */
+  height: auto;        /* mantiene proporción */
+  object-fit: contain; 
+  margin-left: 8px;    /* separación con el texto */
+  vertical-align: middle;
+}
+
+.github-actions-icon {
+  width: 22px;
+  height: 22px;
+  margin-left: 6px;
+  vertical-align: middle;
+  fill: #00b894; /* Verde menta, cambia al color que quieras */
+}
+
 /* Íconos del footer */
 .tech-icon {
   width: 20px;

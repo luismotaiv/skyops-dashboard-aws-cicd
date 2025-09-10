@@ -1,4 +1,4 @@
-name: Deploy Weather Dashboard to AWS ECS
+name: Deploy SkyOps Dashboard to AWS ECS
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 env:
   AWS_REGION: us-east-1
   ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
-  PROJECT_NAME: weather-dashboard
+  PROJECT_NAME: skyops-dashboard
 
 jobs:
   test:

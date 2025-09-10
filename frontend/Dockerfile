@@ -31,7 +31,7 @@ COPY --from=builder /app/build /usr/share/nginx/html
 # Add labels for better container management
 LABEL maintainer="aws-restart-student"
 LABEL version="1.0.0"
-LABEL description="Weather Dashboard Frontend - React App"
+LABEL description="SkyOps Dashboard Frontend - React App"
 
 # Expose port 80
 EXPOSE 80

@@ -47,43 +47,49 @@ function App() {
   return (
     <div className="App">
       <header className="app-header">
-         {/* Logo en vez de H1 */}
-        <img 
-          src={projectLogo} 
-          alt="Weather Dashboard Logo" 
-          className="project-logo" 
+        {/* Logo en vez de H1 */}
+        <img
+          src={projectLogo}
+          alt="Weather Dashboard Logo"
+          className="project-logo"
         />
         <p>Real-time weather information powered by CI/CD</p>
       </header>
 
       <main className="app-main">
         <SearchBar onSearch={handleSearch} />
-        
+
         {loading && <LoadingSpinner />}
-        
+
         {error && (
           <div className="error-message">
             <p>❌ {error}</p>
           </div>
         )}
-        
-        {weatherData && !loading && (
-          <WeatherCard weatherData={weatherData} />
-        )}
+
+        {weatherData && !loading && <WeatherCard weatherData={weatherData} />}
       </main>
 
       <footer className="app-footer">
         <p>
-          Deployed with AWS ECS Fargate 
-          <img src={ecsLogo} alt="AWS ECS Fargate" className="tech-icon" /> • 
-          CI/CD Pipeline 
-          <img src={githubActionsLogo} alt="GitHub Actions" className="tech-icon" /> • 
-          Terraform IaC 
+          Deployed with AWS ECS Fargate
+          <img src={ecsLogo} alt="AWS ECS Fargate" className="tech-icon" /> •
+          CI/CD Pipeline
+          <img
+            src={githubActionsLogo}
+            alt="GitHub Actions"
+            className="github-actions-icon"
+          />{" "}
+          • Terraform IaC
           <img src={terraformLogo} alt="Terraform" className="tech-icon" />
         </p>
         <p>
-          Built for AWS re/Start by luismotaiv 
-          <img src={awsRestartLogo} alt="AWS Re/Start" className="tech-icon" />
+          Built for AWS re/Start by luismotaiv
+          <img
+            src={awsRestartLogo}
+            alt="AWS re/Start"
+            className="aws-restart-logo"
+          />
         </p>
       </footer>
     </div>

@@ -27,7 +27,7 @@ USER nodeuser
 # Add labels for better container management
 LABEL maintainer="aws-restart-student"
 LABEL version="1.0.0"
-LABEL description="Weather Dashboard Backend - Node.js API"
+LABEL description="SkyOps Dashboard Backend - Node.js API"
 
 # Expose port 3001
 EXPOSE 3001

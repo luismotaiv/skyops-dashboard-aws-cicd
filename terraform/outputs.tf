@@ -1,4 +1,4 @@
-# Outputs for Weather Dashboard Infrastructure
+# Outputs for SkyOps Dashboard Infrastructure
 
 # VPC Outputs
 output "vpc_id" {
@@ -33,7 +33,7 @@ output "alb_arn" {
 }
 
 output "application_url" {
-  description = "URL of the weather dashboard application"
+  description = "URL of the SkyOps dashboard application"
   value       = var.domain_name != null ? "https://${var.domain_name}" : "http://${aws_lb.main.dns_name}"
 }
 

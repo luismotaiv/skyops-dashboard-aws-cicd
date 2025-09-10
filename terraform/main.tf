@@ -1,4 +1,4 @@
-# Terraform Configuration for Weather Dashboard
+# Terraform Configuration for SkyOps Dashboard
 terraform {
   required_version = ">= 1.0"
   required_providers {
@@ -15,7 +15,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Project     = "weather-dashboard"
+      Project     = "skyops-dashboard"
       Environment = var.environment
       ManagedBy   = "terraform"
       Owner       = "aws-restart-student-luismota"

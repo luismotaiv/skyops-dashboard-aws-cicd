@@ -6,7 +6,7 @@ services:
     build: 
       context: ./backend
       dockerfile: Dockerfile
-    container_name: weather-backend
+    container_name: skyops-backend
     ports:
       - "3001:3001"
     environment:
@@ -25,14 +25,14 @@ services:
       retries: 3
       start_period: 30s
     networks:
-      - weather-network
+      - skyops-network
 
   # Frontend Service
   frontend:
     build: 
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: weather-frontend
+    container_name: skyops-frontend
     ports:
       - "80:80"
     depends_on:
@@ -46,14 +46,14 @@ services:
       retries: 3
       start_period: 30s
     networks:
-      - weather-network
+      - skyops-network
     environment:
       - BACKEND_HOST=backend:3001
 
 networks:
-  weather-network:
+  skyops-dashboard-network:
     driver: bridge
-    name: weather-dashboard-network
+    name: skyops-dashboard-network
 
 volumes:
   node_modules:
