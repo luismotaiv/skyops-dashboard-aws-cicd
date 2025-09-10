@@ -50,7 +50,7 @@ function App() {
         {/* Logo en vez de H1 */}
         <img
           src={projectLogo}
-          alt="Weather Dashboard Logo"
+          alt="SkyOps Dashboard Logo"
           className="project-logo"
         />
         <p>Real-time weather information powered by CI/CD</p>
