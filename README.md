@@ -66,11 +66,11 @@ La arquitectura fue diseñada con un enfoque **moderno, escalable y costo-eficie
   - Logs en CloudWatch  
 
 📍 Diagrama de Arquitectura:  
-<!-- ![](./docs/arquitectura_skyops.png)  -->
+![](./.docs/arquitectura_skyops.png)
 
-<p align="center">
+<!-- p align="center">
   <img src="./docs/arquitectura_skyops.png" alt="Arquitectura" width="800"/>
-</p>
+</p -->
 
 ---
 
