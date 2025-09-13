@@ -1,4 +1,4 @@
-# Variables for Weather Dashboard Infrastructure
+# Variables for SkyOps Dashboard Infrastructure
 
 variable "aws_region" {
   description = "AWS region for resources"

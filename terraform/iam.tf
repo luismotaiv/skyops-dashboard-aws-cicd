@@ -1,4 +1,4 @@
-# IAM Roles and Policies for Weather Dashboard
+# IAM Roles and Policies for SkyOps Dashboard
 
 # ECS Task Execution Role (for pulling images, logging)
 resource "aws_iam_role" "ecs_task_execution_role" {

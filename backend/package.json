@@ -1,7 +1,7 @@
 {
-  "name": "weather-dashboard-backend",
+  "name": "skyops-dashboard-backend",
   "version": "1.0.0",
-  "description": "Weather Dashboard Backend API with CI/CD Pipeline",
+  "description": "SkyOps Dashboard Backend API with CI/CD Pipeline",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
@@ -11,6 +11,7 @@
     "health": "curl -f http://localhost:3001/api/health || exit 1"
   },
   "keywords": [
+    "skyops",
     "weather",
     "api",
     "nodejs",

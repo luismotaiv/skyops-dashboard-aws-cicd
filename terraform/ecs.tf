@@ -1,4 +1,4 @@
-# ECS Cluster and Services for Weather Dashboard
+# ECS Cluster and Services for SkyOps Dashboard
 
 # ECS Cluster
 resource "aws_ecs_cluster" "main" {

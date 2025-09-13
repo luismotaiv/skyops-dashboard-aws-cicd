@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     uptime: process.uptime(),
     environment: process.env.NODE_ENV || 'development',
     version: '1.0.0',
-    service: 'weather-dashboard-backend'
+    service: 'skyops-dashboard-backend'
   };
 
   res.json(healthCheck);
@@ -45,7 +45,7 @@ router.get('/detailed', async (req, res) => {
       status: 'healthy',
       timestamp: new Date().toISOString(),
       service: {
-        name: 'weather-dashboard-backend',
+        name: 'skyops-dashboard-backend',
         version: '1.0.0',
         environment: process.env.NODE_ENV || 'development',
         uptime: {

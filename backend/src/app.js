@@ -110,7 +110,7 @@ process.on('SIGINT', () => {
 // Start server
 const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`
-🌤️  Weather Dashboard API Server
+🌤️  SkyOps Dashboard API Server
 📡 Server running on port ${PORT}
 🌍 Environment: ${process.env.NODE_ENV || 'development'}
 ⚡ Ready to serve weather data!

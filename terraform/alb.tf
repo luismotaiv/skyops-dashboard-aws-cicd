@@ -1,4 +1,4 @@
-# Application Load Balancer for Weather Dashboard
+# Application Load Balancer for SkyOps Dashboard
 
 # Application Load Balancer
 resource "aws_lb" "main" {

@@ -1,4 +1,4 @@
-# ECR Repositories for Weather Dashboard
+# ECR Repositories for SkyOps Dashboard
 
 # ECR Repository for Backend
 resource "aws_ecr_repository" "backend" {
