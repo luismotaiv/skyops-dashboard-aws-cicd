@@ -1,6 +1,10 @@
 # SkyOps Dashboard – CI/CD + AWS + IaC
 
-![](./.docs/logo_skyops.png)
+<!-- ![](./.docs/logo_skyops.png) -->
+
+<div align="center">
+  <img src="./.docs/logo_skyops.png" alt="SkyOps Logo" width="250"/>
+</div>
 
 ![AWS](https://img.shields.io/badge/AWS-Cloud-orange?logo=amazon-aws)
 ![Terraform](https://img.shields.io/badge/IaC-Terraform-623CE4?logo=terraform)
@@ -71,7 +75,11 @@ La arquitectura fue diseñada con un enfoque **moderno, escalable y costo-eficie
 
 👉 [**Demo en YouTube**](https://youtu.be/71m9qDdAGVk?si=qWp-Y8vHRBonz0E6)  
 
-![](./.docs/capitulos-video-skyops.png)
+<!-- ![](./.docs/capitulos-video-skyops.png) -->
+
+<div align="center">
+  <img src="./.docs/capitulos-video-skyops.png" alt="capítulos"/>
+</div>
 
 ---
 
