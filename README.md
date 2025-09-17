@@ -25,7 +25,7 @@
    - [🔹 Ejecución Local con Docker Compose](#-1-ejecución-local-con-docker-compose)
    - [🔹 Despliegue en AWS con Terraform](#-2-despliegue-en-aws-con-terraform)
 6. [🔐 Variables de Entorno](#-variables-de-entorno)
-7. [📊 CI/CD con GitHub Actions](#-ci/cd-con-gitHub-actions)
+7. [📊 CI/CD con GitHub Actions](#-cicd-con-gitHub-actions)
 8. [🌟 Posibles Mejoras](#-posibles-mejoras)
 9. [🤝 Contributing](#-contributing)
 10. [👤 Autor](#-autor)
@@ -125,7 +125,7 @@ La app quedará disponible en:
 
 #### **ℹ️ Requerimientos:** 
 - Debes tener instalado **[AWS CLI](https://docs.aws.amazon.com/es_es/streams/latest/dev/setup-awscli.html)** ⚙️, **[Terraform](https://developer.hashicorp.com/terraform)** 🛠️ y **[Docker](https://www.docker.com/pricing/)** 🐳
-- Configura las [**variables de entorno**](#-github-actions-ci/cd-en-la-nube-de-aws) para despliegue en la nube 🔒☁️.
+- Configura las [**variables de entorno**](#-en-la-nube-de-aws-iac-cicd) para despliegue en la nube 🔒☁️.
 
 ***1.*** Autentícate en AWS CLI.
 
@@ -213,9 +213,9 @@ terraform destroy
 OPENWEATHER_API_KEY=your_api_key_here
 ```
 
-### 📌 GitHub Actions (CI/CD) - En la nube de AWS
+### 📌 En la nube de AWS (IaC - CI/CD)
 
-#### 1. En tu repositorio de GitHub, configurar los siguientes **secrets**: 
+#### 1. En tu repositorio de GitHub, configurar los siguientes ***secrets***: 
 
  - `AWS_ACCOUNT_ID` → ID de tu cuenta AWS
 
@@ -247,12 +247,12 @@ OPENWEATHER_API_KEY=your_api_key_here
 ---
 
 #### Flujo **CI/CD**:
-- ##### Cada push en GitHub dispara un workflow en GitHub Actions.
-- ##### Se construyen imágenes Docker y se suben a Amazon ECR.
-- ##### Se actualiza la definición de tareas en ECS Fargate.
-- ##### El usuario obtiene la nueva versión en producción sin intervención manual.
+* Cada push en GitHub dispara un workflow en GitHub Actions.
+* Se construyen imágenes Docker y se suben a Amazon ECR.
+* Se actualiza la definición de tareas en ECS Fargate.
+* El usuario obtiene la nueva versión en producción sin intervención manual.
 
-Puedes realizar pruebas Push hacia tu reporsitorio
+**ℹ️ Puedes realizar pruebas `Push` hacia tu reporsitorio**
 
 ---
 
