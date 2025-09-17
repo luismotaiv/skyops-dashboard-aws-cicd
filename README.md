@@ -1,4 +1,4 @@
-# SkyOps Dashboard – CI/CD + AWS + IaC
+<!-- # SkyOps Dashboard – CI/CD + AWS + IaC -->
 
 <!-- ![](./.docs/logo_skyops.png) -->
 
@@ -65,11 +65,11 @@ La arquitectura fue diseñada con un enfoque **moderno, escalable y costo-eficie
   - Parámetros en SSM  
   - Logs en CloudWatch  
 
-📍 Diagrama de Arquitectura:  
+Arquitectura:  
 ![](./.docs/arquitectura_skyops.png)
 
 <!-- p align="center">
-  <img src="./docs/arquitectura_skyops.png" alt="Arquitectura" width="800"/>
+  <img src="./.docs/arquitectura_skyops.png" alt="Arquitectura" width="800"/>
 </p -->
 
 ---
@@ -82,7 +82,7 @@ La arquitectura fue diseñada con un enfoque **moderno, escalable y costo-eficie
 <!-- ![](./.docs/capitulos-video-skyops.png) -->
 
 <div align="center">
-  <img src="./.docs/capitulos-video-skyops.png" alt="capítulos"/>
+  <img src="./.docs/capitulos-video-skyops.png" alt="Capítulos"/>
 </div>
 
 ---
@@ -102,7 +102,10 @@ La arquitectura fue diseñada con un enfoque **moderno, escalable y costo-eficie
 ## ⚙️ Instalación y Ejecución  
 
 ### 🔹 1. Ejecución Local con Docker Compose  
-- **Requerimientos:** Debes tener instalado [**Docker**](https://www.docker.com/pricing/) 🐳
+#### **ℹ️ Requerimientos:** 
+- Debes tener instalado [**Docker**](https://www.docker.com/pricing/) 🐳.
+- Configura las [**variables de entorno**](#-local) locales 🔒.
+
 Clona el repositorio y ejecuta:  
 
 ```bash
@@ -120,7 +123,9 @@ La app quedará disponible en:
 ---
 ### 🔹 2. Despliegue en AWS con Terraform
 
-- **Requerimientos:** Debes tener instalado **[AWS CLI](https://docs.aws.amazon.com/es_es/streams/latest/dev/setup-awscli.html)** ⚙️, **[Terraform](https://developer.hashicorp.com/terraform)** 🛠️ y **[Docker](https://www.docker.com/pricing/)** 🐳
+#### **ℹ️ Requerimientos:** 
+- Debes tener instalado **[AWS CLI](https://docs.aws.amazon.com/es_es/streams/latest/dev/setup-awscli.html)** ⚙️, **[Terraform](https://developer.hashicorp.com/terraform)** 🛠️ y **[Docker](https://www.docker.com/pricing/)** 🐳
+- Configura las [**variables de entorno**](#-github-actions-ci/cd-en-la-nube-de-aws) para despliegue en la nube 🔒☁️.
 
 ***1.*** Autentícate en AWS CLI.
 
@@ -199,7 +204,7 @@ terraform destroy
 ---
 
 ## 🔐 Variables de Entorno
-- Requiere cuente, Consigue tu API Key gratuita en **[OpenWeatherMap](https://openweathermap.org/)**.
+- Requiere cuenta, consigue tu API Key gratuita en **[OpenWeatherMap](https://openweathermap.org/)**.
 
 ### 📌 Local
 
@@ -210,13 +215,25 @@ OPENWEATHER_API_KEY=your_api_key_here
 
 ### 📌 GitHub Actions (CI/CD) - En la nube de AWS
 
-#### En tu repositorio de GitHub, configurar los siguientes **secrets**: 
+#### 1. En tu repositorio de GitHub, configurar los siguientes **secrets**: 
 
  - `AWS_ACCOUNT_ID` → ID de tu cuenta AWS
 
 - `AWS_ROLE_ARN` → ARN del rol IAM usado por GitHub Actions
 
 - `OPENWEATHER_API_KEY` → Tu API key de OpenWeather
+
+#### 2. En <ins>.github/workflows</ins>, en el archivo [deploy.yml](.github/workflows/deploy.yml) modifica las siguientes variables (env):
+
+ - `AWS_REGION` → Poniendo ahora la ***region de AWS*** en dónde trabajarás ([**ir a variable**](https://github.com/luismotaiv/skyops-dashboard-aws-cicd/blob/2c96a0f8faf6dcf49ef26c8f958dd2f19dc3307d/.github/workflows/deploy.yml#L10)).
+
+ - `ECR_REGISTRY` → Sustituyendo de igual forma la ***region*** ([**ir a variable**](https://github.com/luismotaiv/skyops-dashboard-aws-cicd/blob/2c96a0f8faf6dcf49ef26c8f958dd2f19dc3307d/.github/workflows/deploy.yml#L11)).
+
+#### 3. En <ins>terraform</ins>, en el archivo [variables.tf](terraform/variables.tf) modifica las siguientes variables:
+
+ - `github_repository` → Poniendo ahora el ***nombre de tu repositorio*** ([**ir a variable**](https://github.com/luismotaiv/skyops-dashboard-aws-cicd/blob/2c96a0f8faf6dcf49ef26c8f958dd2f19dc3307d/terraform/variables.tf#L15)).
+
+ - `aws_region` → Poniendo ahora la ***region de AWS*** en donde trabajarás ([**ir a variable**](https://github.com/luismotaiv/skyops-dashboard-aws-cicd/blob/2c96a0f8faf6dcf49ef26c8f958dd2f19dc3307d/terraform/variables.tf#L3)).
 
 ---
 

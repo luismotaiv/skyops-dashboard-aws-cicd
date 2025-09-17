@@ -29,7 +29,7 @@ RUN chmod +x /docker-entrypoint.sh
 COPY --from=builder /app/build /usr/share/nginx/html
 
 # Add labels for better container management
-LABEL maintainer="aws-restart-student"
+LABEL maintainer="luismotaiv"
 LABEL version="1.0.0"
 LABEL description="SkyOps Dashboard Frontend - React App"
 

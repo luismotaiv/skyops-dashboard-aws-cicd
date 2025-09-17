@@ -19,7 +19,7 @@
     "aws",
     "cicd"
   ],
-  "author": "AWS re/Start Student",
+  "author": "luismotaiv",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",

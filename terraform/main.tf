@@ -18,7 +18,7 @@ provider "aws" {
       Project     = "skyops-dashboard"
       Environment = var.environment
       ManagedBy   = "terraform"
-      Owner       = "aws-restart-student-luismota"
+      Owner       = "luismotaiv"
     }
   }
 }

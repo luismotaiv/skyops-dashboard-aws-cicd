@@ -25,7 +25,7 @@ RUN chown -R nodeuser:nodejs /app
 USER nodeuser
 
 # Add labels for better container management
-LABEL maintainer="aws-restart-student"
+LABEL maintainer="luismotaiv"
 LABEL version="1.0.0"
 LABEL description="SkyOps Dashboard Backend - Node.js API"
 
