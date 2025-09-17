@@ -125,7 +125,7 @@ La app quedará disponible en:
 
 #### **ℹ️ Requerimientos:** 
 - Debes tener instalado **[AWS CLI](https://docs.aws.amazon.com/es_es/streams/latest/dev/setup-awscli.html)** ⚙️, **[Terraform](https://developer.hashicorp.com/terraform)** 🛠️ y **[Docker](https://www.docker.com/pricing/)** 🐳
-- Configura las [**variables de entorno**](#-en-la-nube-de-aws-iac-cicd) para despliegue en la nube 🔒☁️.
+- Configura las [**variables de entorno**](#-en-la-nube-de-aws-(iac-cicd)) para despliegue en la nube 🔒☁️.
 
 ***1.*** Autentícate en AWS CLI.
 
